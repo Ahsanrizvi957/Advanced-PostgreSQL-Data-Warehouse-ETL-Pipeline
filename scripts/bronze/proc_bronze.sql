@@ -1,3 +1,18 @@
+/*
+===================================================================================================
+Stored procedure: Load Bronze Layer(source -> bronze)
+===================================================================================================
+Script purpose: This stored procedure loads data into the 'bronze' schema from external CSV files.
+It performs the following actions:
+- Truncate the bronze tables before loading the data
+- Uses 'COPY' command to load the data from CSV files to bronze tables.
+- It shows the load-duraton of each table along with the whole batch-duration.
+- It also have exception handling, if there is any error during the load process it tells the root cause.
+
+Usage Example: CALL bronze.bronze_load();
+===================================================================================================
+*/
+
 CALL bronze.load_bronze();
 CREATE OR REPLACE PROCEDURE bronze.load_bronze()
 LANGUAGE plpgsql
