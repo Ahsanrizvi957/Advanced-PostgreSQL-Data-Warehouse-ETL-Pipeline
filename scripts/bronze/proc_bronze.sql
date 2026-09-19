@@ -1,3 +1,4 @@
+CALL bronze.load_bronze();
 CREATE OR REPLACE PROCEDURE bronze.load_bronze()
 LANGUAGE plpgsql
 AS $$
@@ -7,6 +8,10 @@ DECLARE
 	batch_end_time 	 TIMESTAMP;
 	start_time 		 TIMESTAMP;
 	end_time 		 TIMESTAMP;
+	error_message    TEXT;
+	error_detail     TEXT;
+	error_hint       TEXT;
+	error_state      TEXT;
 
 BEGIN
 
@@ -206,7 +211,32 @@ RAISE NOTICE 'Total load duration: % seconds',
 			EXTRACT(EPOCH FROM(batch_end_time - batch_start_time));
 RAISE NOTICE '================================================';
 
+--===========================EXCEPTION===========================;
+
+EXCEPTION 
+		WHEN OTHERS THEN
+
+						 GET STACKED DIAGNOSTICS
+
+						 error_message = MESSAGE_TEXT,
+						 error_detail  = PG_EXCEPTION_DETAIL,
+						 error_hint    = PG_EXCEPTION_HINT,
+						 error_state   = RETURNED_SQLstate;
+
+RAISE NOTICE '===================================================';
+RAISE NOTICE 'ERROR OCCURED DURING LOADING BRONZE';
+RAISE NOTICE '===================================================';
+
+
+RAISE NOTICE 'Error_message: %', error_message;
+RAISE NOTICE 'Error_detail: %', error_detail;
+RAISE NOTICE 'Error_hint: %', error_hint;
+RAISE NOTICE 'Error_state: %', error_state;
+
+RAISE NOTICE '===================================================';
+RAISE;
+
 END $$;
 
 
-CALL bronze.load_bronze()
+
