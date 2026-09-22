@@ -7,33 +7,57 @@ It performs the following actions:
 - Truncate the bronze tables before loading the data
 - Uses 'COPY' command to load the data from CSV files to bronze tables.
 - It shows the load-duraton of each table along with the whole batch-duration.
-- It also have exception handling, if there is any error during the load process it tells the root cause.
+- It also has exception handling, if there is any error during the load process it tells the root cause.
+- It also has a separate audit table/log to track the pipeline status
 
 Usage Example: CALL bronze.bronze_load();
 ===================================================================================================
 */
 
-CALL bronze.load_bronze();
 CREATE OR REPLACE PROCEDURE bronze.load_bronze()
 LANGUAGE plpgsql
 AS $$
 
 DECLARE
-	batch_start_time TIMESTAMP;
-	batch_end_time 	 TIMESTAMP;
-	start_time 		 TIMESTAMP;
-	end_time 		 TIMESTAMP;
+	v_batch_start_time TIMESTAMP;
+	v_batch_end_time   TIMESTAMP;
+	start_time 		   TIMESTAMP;
+	end_time 		   TIMESTAMP;
+	
 	error_message    TEXT;
 	error_detail     TEXT;
 	error_hint       TEXT;
 	error_state      TEXT;
+	
+	v_batch_ID		 INT;
 
 BEGIN
 
-batch_start_time := clock_timestamp();
+--      generate a unique batch id
+v_batch_id:= nextval('bronze.batch_id_seq');
+
+-- capture batch start time
+v_batch_start_time := clock_timestamp();
+
+-- storing the batch information into audit table
+INSERT INTO bronze.batch_audit
+(
+	batch_id,
+	batch_start_time,
+	batch_end_time,
+	status
+)
+VALUES
+(
+	v_batch_id,
+	v_batch_start_time,
+	NULL,
+	'Running'
+);
 
 RAISE NOTICE '================================================';
 RAISE NOTICE 'Loading bronze layer';
+RAISE NOTICE 'batch ID: %',v_batch_id;
 RAISE NOTICE '================================================';
 
 
@@ -218,13 +242,21 @@ RAISE NOTICE 'products_category loading duration: % seconds',
 
 
 
-batch_end_time := clock_timestamp();
+v_batch_end_time := clock_timestamp();
 
 
 RAISE NOTICE '================================================';
 RAISE NOTICE 'Total load duration: % seconds',
-			EXTRACT(EPOCH FROM(batch_end_time - batch_start_time));
+			EXTRACT(EPOCH FROM(v_batch_end_time - v_batch_start_time));
 RAISE NOTICE '================================================';
+
+-- update the records in the audit table 
+UPDATE bronze.batch_audit
+SET 
+	batch_end_time = v_batch_end_time,
+	status = 'Success'
+WHERE batch_id = v_batch_id;
+	
 
 --===========================EXCEPTION===========================;
 
@@ -252,6 +284,4 @@ RAISE NOTICE '===================================================';
 RAISE;
 
 END $$;
-
-
 
