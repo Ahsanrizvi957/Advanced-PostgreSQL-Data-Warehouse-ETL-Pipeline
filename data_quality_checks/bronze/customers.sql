@@ -1,4 +1,4 @@
-================================= CUSTOMERS_DATA_QUALITY======================================
+-- ================================= CUSTOMERS_DATA_QUALITY======================================
 
 
 -- check the columns and idenfity the data types and nulls
