@@ -1,4 +1,4 @@
--- ======================orders data quality==========================
+-- ======================orders_data_quality==========================
 
 SELECT * FROM bronze.orders
 
