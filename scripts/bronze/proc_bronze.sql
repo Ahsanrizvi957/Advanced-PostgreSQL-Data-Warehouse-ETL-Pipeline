@@ -82,25 +82,6 @@ RAISE NOTICE 'customers loading duration: % seconds',
 	EXTRACT(EPOCH FROM (end_time - start_time));
 
 
-RAISE NOTICE '==================geolocation=====================';
-
-start_time:= clock_timestamp();
-
-TRUNCATE TABLE bronze.geolocation; 
-
-COPY bronze.geolocation
-FROM 'C:/Users/ahsan/Downloads/Temp/olist_geolocation_dataset.csv'
-WITH (
-	FORMAT CSV,
-	HEADER TRUE,
-	DELIMITER ',',
-	QUOTE '"'
-);
-
-end_time:= clock_timestamp();
-
-RAISE NOTICE 'geolocation loading duration: % seconds',
-			EXTRACT(EPOCH FROM(end_time - start_time));
 
 RAISE NOTICE '==================order_items=====================';
 
