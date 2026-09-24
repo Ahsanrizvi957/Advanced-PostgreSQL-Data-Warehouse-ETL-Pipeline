@@ -1,8 +1,21 @@
 -- ====================== sellers data quality==========================
 
-SELECT*
-FROM bronze.sellers
+-- check the columns and idenfity the data types and nulls
+  
+SELECT 
+column_name,
+data_type,
+is_nullable
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE table_name = 'sellers'
+AND table_schema = 'bronze'
 
+-- identify the total_count
+  
+SELECT 
+COUNT(*) AS row_count
+FROM bronze.sellers
+  
 -- null and duplicate check in seller id
 
 SELECT
