@@ -1,7 +1,19 @@
 	-- ====================== products_data quality==========================
 
-SELECT
-*
+-- check the columns and idenfity the data types and nulls
+  
+SELECT 
+column_name,
+data_type,
+is_nullable
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE table_name = 'products'
+AND table_schema = 'bronze'
+
+-- identify the total_count
+  
+SELECT 
+COUNT(*) AS row_count
 FROM bronze.products
 
 -- null check in product id
