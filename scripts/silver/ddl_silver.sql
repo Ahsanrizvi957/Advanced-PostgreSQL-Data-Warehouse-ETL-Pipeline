@@ -1,3 +1,11 @@
+/*
+===========================================================================================
+DDL script: Create silver Tables
+============================================================================================
+Script Purpose: This scripts create tables in the silver Schema,Dropping existing tables if
+they already exists.
+*/
+
 DROP TABLE IF EXISTS silver.customers;
 CREATE TABLE silver.customers(
 
