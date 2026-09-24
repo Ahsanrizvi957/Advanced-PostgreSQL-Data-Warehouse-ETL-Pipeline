@@ -16,15 +16,6 @@ CREATE TABLE bronze.customers(
 	customer_state 			 TEXT
 );
 
-DROP TABLE IF EXISTS bronze.geolocation;
-CREATE TABLE bronze.geolocation(
-
-geolocation_zip_code_prefix TEXT,
-geolocation_lat 			TEXT,
-geolocation_lng 			TEXT,
-geolocation_city 			TEXT,
-geolocation_state 			TEXT
-);
 
 DROP TABLE IF EXISTS bronze.order_items;
 CREATE TABLE bronze.order_items(
