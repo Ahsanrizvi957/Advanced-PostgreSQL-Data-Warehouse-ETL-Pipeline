@@ -1,8 +1,21 @@
 -- ====================== order_reviews data quality==========================
 
-SELECT*
-FROM bronze.order_reviews
+-- check the columns and idenfity the data types and nulls
+  
+SELECT 
+column_name,
+data_type,
+is_nullable
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE table_name = 'order_reviews'
+AND table_schema = 'bronze'
 
+-- identify the total_count
+  
+SELECT 
+COUNT(*) AS row_count
+FROM bronze.order_reviews
+	
 -- null check in review id
 
 SELECT
