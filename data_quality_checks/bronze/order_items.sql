@@ -1,8 +1,20 @@
 -- ================================= ORDER_ITEMS_DATA_QUALITY======================================
 
-SELECT
-* 
-FROM bronze.order_items
+-- check the columns and idenfity the data types and nulls
+  
+SELECT 
+column_name,
+data_type,
+is_nullable
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE table_name = 'order_items'
+AND table_schema = 'bronze'
+
+-- identify the total_count
+  
+SELECT 
+COUNT(*) AS row_count
+FROM bronze.customers
 
 -- null check in order id
 
