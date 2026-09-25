@@ -58,3 +58,21 @@ shipping_limit_date::TIMESTAMP,
 price::NUMERIC,
 freight_value::NUMERIC
 FROM bronze.order_items
+
+INSERT INTO silver.order_payments(
+order_id,
+payment_sequential,
+payment_type,
+payment_installments,
+payment_value
+
+)
+SELECT
+order_id::VARCHAR(50),
+payment_sequential::SMALLINT,
+payment_type::CHAR(20),
+payment_installments::INTEGER,
+payment_value::NUMERIC 
+FROM bronze.order_payments
+
+
