@@ -41,3 +41,13 @@ price 				NUMERIC (12,2),
 freight_value 		NUMERIC (12,2)
 );
 
+DROP TABLE IF EXISTS silver.order_payments;
+CREATE TABLE silver.order_payments(
+
+order_id             VARCHAR(50),
+payment_sequential   SMALLINT,
+payment_type         CHAR(20),
+payment_installments INTEGER,
+payment_value		 NUMERIC (12,2)
+
+)
