@@ -19,14 +19,15 @@ CREATE TABLE silver.customers(
 DROP TABLE IF EXISTS silver.orders;
 CREATE TABLE silver.orders(
 
-order_id 					  VARCHAR (50) NOT NULL,
-customer_id 				  VARCHAR (50) NOT NULL,
-order_status 				  CHAR (20),
-order_purchase_timestamp  	  TIMESTAMP,
-order_approved_at 			  TIMESTAMP,
-order_delivered_carrier_date  TIMESTAMP,
-order_delivered_customer_date TIMESTAMP,
-order_estimated_delivery_date DATE
+	order_id 					  VARCHAR (50) NOT NULL,
+	customer_id 				  VARCHAR (50) NOT NULL,
+	order_status 				  CHAR (20),
+	order_purchase_timestamp  	  TIMESTAMP,
+	order_approved_at 			  TIMESTAMP,
+	order_delivered_carrier_date  TIMESTAMP,
+	order_delivered_customer_date TIMESTAMP,
+	order_estimated_delivery_date DATE
+	
 );
 
 DROP TABLE IF EXISTS silver.order_items;
@@ -51,3 +52,15 @@ payment_installments INTEGER,
 payment_value		 NUMERIC (12,2)
 
 )
+DROP TABLE IF EXISTS silver.order_reviews;
+CREATE TABLE silver.order_reviews(
+
+review_id			    VARCHAR (50) NOT NULL,
+order_id 				VARCHAR (50),
+review_score 			INTEGER,
+review_comment_title 	TEXT,
+review_comment_message 	TEXT,
+review_creation_date 	TIMESTAMP,
+review_answer_timestamp TIMESTAMP
+);
+
