@@ -28,3 +28,16 @@ order_delivered_carrier_date  TIMESTAMP,
 order_delivered_customer_date TIMESTAMP,
 order_estimated_delivery_date DATE
 );
+
+DROP TABLE IF EXISTS silver.order_items;
+CREATE TABLE silver.order_items(
+
+order_id 			VARCHAR(50),
+order_item_id 		SMALLINT NOT NULL,
+product_id 			VARCHAR(50),
+seller_id 			VARCHAR(50),
+shipping_limit_date TIMESTAMP,
+price 				NUMERIC (12,2),
+freight_value 		NUMERIC (12,2)
+);
+
