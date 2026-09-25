@@ -7,7 +7,7 @@ INSERT INTO silver.customers(
 	customer_state 			 
 )
 SELECT 
-customer_id::VARCHAR (50), -- converting text to varchar
+customer_id::VARCHAR (50), -- converting data type
 customer_unique_id::VARCHAR (50),
 customer_zip_code_prefix::VARCHAR (5),
 customer_city::VARCHAR (50),
@@ -31,9 +31,30 @@ SELECT
 order_id,
 customer_id,
 order_status,
-order_purchase_timestamp::TIMESTAMP, -- converting text to timestamp
+order_purchase_timestamp::TIMESTAMP, -- converting data type
 order_approved_at::TIMESTAMP,
 order_delivered_carrier_date::TIMESTAMP,
 order_delivered_customer_date::TIMESTAMP,
-order_estimated_delivery_date::DATE --converting text to date
+order_estimated_delivery_date::DATE 
 FROM bronze.orders;
+
+TRUNCATE TABLE silver.order_items;
+INSERT INTO silver.order_items(
+
+order_id,
+order_item_id,
+product_id,
+seller_id,
+shipping_limit_date,
+price,
+freight_value
+)
+SELECT
+order_id::varchar(50), -- converting data type
+order_item_id::smallint,
+product_id::varchar(50),
+seller_id::varchar(50),
+shipping_limit_date::TIMESTAMP,
+price::NUMERIC,
+freight_value::NUMERIC
+FROM bronze.order_items
