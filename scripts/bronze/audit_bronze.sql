@@ -1,3 +1,5 @@
+-- Generating sequence number for batch id
+
 CREATE SEQUENCE bronze.batch_id_seq
 START WITH 1
 INCREMENT BY 1;
