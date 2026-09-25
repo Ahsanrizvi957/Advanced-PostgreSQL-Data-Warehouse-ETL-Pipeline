@@ -75,4 +75,24 @@ payment_installments::INTEGER,
 payment_value::NUMERIC 
 FROM bronze.order_payments
 
+INSERT INTO silver.order_reviews(
+
+review_id,
+order_id,
+review_score,
+review_comment_title,
+review_comment_message,
+review_creation_date,
+review_answer_timestamp 
+
+)
+SELECT
+review_id::VARCHAR (50), -- converting data types
+order_id::VARCHAR (50),
+review_score::INTEGER,
+review_comment_title::TEXT,
+review_comment_message::TEXT,
+review_creation_date::TIMESTAMP,
+review_answer_timestamp::TIMESTAMP
+FROM bronze.order_reviews
 
