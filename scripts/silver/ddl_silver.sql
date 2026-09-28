@@ -64,3 +64,18 @@ review_creation_date 	TIMESTAMP,
 review_answer_timestamp TIMESTAMP
 );
 
+DROP TABLE IF EXISTS silver.products;
+CREATE TABLE silver.products(
+
+product_id 			  	   VARCHAR (50),
+product_category_name 	   VARCHAR (50),
+product_name_lenght        INTEGER,
+product_description_lenght INTEGER,
+product_photos_qty 		   SMALLINT,
+product_weight_g 		   INTEGER,
+product_length_cm 		   INTEGER,
+product_height_cm 		   INTEGER,
+product_width_cm 		   INTEGER
+
+
+
