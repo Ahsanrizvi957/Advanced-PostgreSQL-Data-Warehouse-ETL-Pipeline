@@ -95,4 +95,32 @@ review_comment_message::TEXT,
 review_creation_date::TIMESTAMP,
 review_answer_timestamp::TIMESTAMP
 FROM bronze.order_reviews
+	
+TRUNCATE silver.products;
+INSERT INTO silver.products(
 
+product_id,
+product_category_name,
+product_name_lenght,
+product_description_lenght,
+product_photos_qty,
+product_weight_g,
+product_length_cm,
+product_height_cm,		   
+product_width_cm 		   
+)
+
+SELECT 
+product_id::VARCHAR(50),
+CASE 
+	WHEN product_category_name IS NULL THEN 'n/a' -- replacing null with n/a
+	ELSE product_category_name::VARCHAR(50)
+END AS product_category_name,
+product_name_lenght::INTEGER,
+product_description_lenght::INTEGER,
+product_photos_qty::SMALLINT,
+product_weight_g::INTEGER,
+product_length_cm::INTEGER,
+product_height_cm::INTEGER,		   
+product_width_cm::INTEGER 		   
+FROM bronze.products
