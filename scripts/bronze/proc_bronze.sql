@@ -240,7 +240,7 @@ SET
 	batch_end_time = v_batch_end_time,
 	status = 'Success'
 WHERE batch_id = v_batch_id
-AND layer = 'silver';
+AND layer = 'bronze';
 
 --===========================EXCEPTION===========================;
 
