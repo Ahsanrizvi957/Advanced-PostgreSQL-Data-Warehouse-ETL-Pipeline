@@ -1,3 +1,4 @@
+CALL silver.load_silver();
 CREATE OR REPLACE PROCEDURE silver.load_silver()
 LANGUAGE plpgsql
 AS $$
@@ -285,7 +286,7 @@ v_batch_end_time := clock_timestamp();
 UPDATE bronze.batch_audit
 SET
     batch_end_time = v_batch_end_time,
-    status = 'SUCCESS'
+    status = 'success'
 WHERE batch_id = v_batch_id
   AND layer = 'silver';
 
@@ -318,4 +319,3 @@ RAISE NOTICE'========================================================';
 RAISE;
 
 END $$;
-
