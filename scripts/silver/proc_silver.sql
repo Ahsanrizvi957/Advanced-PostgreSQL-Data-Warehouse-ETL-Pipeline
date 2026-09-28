@@ -6,16 +6,15 @@ Script Purpose:
 	Actions Performed:
 		- Truncates Silver tables.
 		- Inserts transformed and cleansed data from Bronze into Silver tables.
-		- This sript also shows how much time would it take to load data from bronze to silver layer.
-		- I used exception handling in this ETL procedure to make troubleshooting easier.
-		- this script also has a audit log
+		- It shows the load-duraton of each table along with the whole batch-duration.
+		- It also has exception handling, if there is any error during the load process it tells the root cause.
+		- It also has a separate audit table/log to track the pipeline status
+
+Usage Example: CALL bronze.load_silver();
 ===============================================================================
 */
 
 
-
-
-CALL silver.load_silver();
 CREATE OR REPLACE PROCEDURE silver.load_silver()
 LANGUAGE plpgsql
 AS $$
@@ -44,7 +43,7 @@ v_batch_id := nextval('bronze.batch_id_seq');
 
 v_batch_start_time := clock_timestamp();
 
--- populating the audit table
+-- inserting batch information in the audit table
 
 INSERT INTO bronze.batch_audit(
     batch_id,
