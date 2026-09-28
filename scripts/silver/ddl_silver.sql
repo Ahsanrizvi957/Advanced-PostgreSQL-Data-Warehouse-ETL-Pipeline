@@ -85,5 +85,13 @@ product_category_name_english TEXT
 
 );
 
+DROP TABLE IF EXISTS silver.sellers;
+CREATE TABLE silver.sellers(
+
+seller_id              VARCHAR(50) NOT NULL,
+seller_zip_code_prefix VARCHAR(5),
+seller_city 		   CHAR(20),
+seller_state 		   CHAR(2)
+)
 
 
