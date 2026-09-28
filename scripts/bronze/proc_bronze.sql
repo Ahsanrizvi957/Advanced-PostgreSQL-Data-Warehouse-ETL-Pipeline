@@ -10,7 +10,7 @@ It performs the following actions:
 - It also has exception handling, if there is any error during the load process it tells the root cause.
 - It also has a separate audit table/log to track the pipeline status
 
-Usage Example: CALL bronze.bronze_load();
+Usage Example: CALL bronze.load_bronze();
 ===================================================================================================
 */
 
