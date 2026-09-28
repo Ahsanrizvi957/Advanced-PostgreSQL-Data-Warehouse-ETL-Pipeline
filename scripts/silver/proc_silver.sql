@@ -124,3 +124,14 @@ product_length_cm::INTEGER,
 product_height_cm::INTEGER,		   
 product_width_cm::INTEGER 		   
 FROM bronze.products
+
+TRUNCATE silver.products_category;
+INSERT INTO silver.products_category(
+product_category_name,
+product_category_name_english 
+
+)
+SELECT
+product_category_name,
+product_category_name_english 
+FROM bronze.products_category
