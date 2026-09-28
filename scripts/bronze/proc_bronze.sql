@@ -40,7 +40,7 @@ v_batch_id:= nextval('bronze.batch_id_seq');
 -- capture batch start time
 v_batch_start_time := clock_timestamp();
 
--- storing the batch information into audit table
+-- storing the batch information in the audit table
 INSERT INTO bronze.batch_audit
 (
 	batch_id,
