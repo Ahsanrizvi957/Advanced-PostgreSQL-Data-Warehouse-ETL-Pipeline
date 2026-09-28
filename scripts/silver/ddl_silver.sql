@@ -67,7 +67,7 @@ review_answer_timestamp TIMESTAMP
 DROP TABLE IF EXISTS silver.products;
 CREATE TABLE silver.products(
 
-product_id 			  	   VARCHAR (50),
+product_id 			  	   VARCHAR (50) NOT NULL,
 product_category_name 	   VARCHAR (50),
 product_name_lenght        INTEGER,
 product_description_lenght INTEGER,
