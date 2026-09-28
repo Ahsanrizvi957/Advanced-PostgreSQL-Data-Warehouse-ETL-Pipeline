@@ -19,6 +19,7 @@ LANGUAGE plpgsql
 AS $$
 
 DECLARE
+	v_batch_ID		   BIGINT;
 	v_batch_start_time TIMESTAMP;
 	v_batch_end_time   TIMESTAMP;
 	start_time 		   TIMESTAMP;
@@ -29,7 +30,7 @@ DECLARE
 	error_hint       TEXT;
 	error_state      TEXT;
 	
-	v_batch_ID		 INT;
+	
 
 BEGIN
 
@@ -43,6 +44,7 @@ v_batch_start_time := clock_timestamp();
 INSERT INTO bronze.batch_audit
 (
 	batch_id,
+	layer,
 	batch_start_time,
 	batch_end_time,
 	status
@@ -50,6 +52,7 @@ INSERT INTO bronze.batch_audit
 VALUES
 (
 	v_batch_id,
+	'bronze',
 	v_batch_start_time,
 	NULL,
 	'Running'
@@ -236,8 +239,8 @@ UPDATE bronze.batch_audit
 SET 
 	batch_end_time = v_batch_end_time,
 	status = 'Success'
-WHERE batch_id = v_batch_id;
-	
+WHERE batch_id = v_batch_id
+AND layer = 'silver';
 
 --===========================EXCEPTION===========================;
 
@@ -264,5 +267,4 @@ RAISE NOTICE 'Error_state: %', error_state;
 RAISE NOTICE '===================================================';
 RAISE;
 
-END $$;
-
+END $$
