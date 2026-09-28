@@ -135,3 +135,18 @@ SELECT
 product_category_name,
 product_category_name_english 
 FROM bronze.products_category
+
+TRUNCATE silver.sellers;
+INSERT INTO silver.sellers(
+seller_id,
+seller_zip_code_prefix,
+seller_city,
+seller_state
+)
+SELECT
+seller_id::VARCHAR(50),
+seller_zip_code_prefix::VARCHAR(5),
+seller_city::CHAR(20),
+seller_state::CHAR(2)
+FROM bronze.sellers
+
