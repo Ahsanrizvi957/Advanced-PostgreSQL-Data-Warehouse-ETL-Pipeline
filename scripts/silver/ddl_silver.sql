@@ -77,5 +77,13 @@ product_length_cm 		   INTEGER,
 product_height_cm 		   INTEGER,
 product_width_cm 		   INTEGER
 
+DROP TABLE IF EXISTS silver.products_category;
+CREATE TABLE silver.products_category(
+
+product_category_name         TEXT,
+product_category_name_english TEXT
+
+);
+
 
 
