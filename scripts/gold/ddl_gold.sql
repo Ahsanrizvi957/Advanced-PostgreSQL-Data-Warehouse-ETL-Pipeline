@@ -20,3 +20,12 @@ CREATE TABLE gold.dim_products(
 	product_height 			 INTEGER,
 	product_width  			 INTEGER 
 );
+
+DROP TABLE IF EXISTS gold.dim_sellers;
+CREATE TABLE gold.dim_sellers (
+    seller_key BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    seller_id VARCHAR(50) NOT NULL,
+    seller_zip_code_prefix VARCHAR(5),
+    seller_city VARCHAR(50),
+    seller_state VARCHAR(2)
+);
