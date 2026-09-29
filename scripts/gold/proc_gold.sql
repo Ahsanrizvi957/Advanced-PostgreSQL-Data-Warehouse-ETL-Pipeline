@@ -35,3 +35,17 @@ p.product_width_cm AS product_width
 FROM silver.products AS p
 LEFT JOIN silver.products_category AS pc
 ON p.product_category_name = pc.product_category_name
+
+TRUNCATE gold.dim_sellers;
+INSERT INTO gold.dim_sellers (
+    seller_id,
+    seller_zip_code_prefix,
+    seller_city,
+    seller_state
+)
+SELECT
+    seller_id,
+    seller_zip_code_prefix,
+    seller_city,
+    seller_state
+FROM silver.sellers;
