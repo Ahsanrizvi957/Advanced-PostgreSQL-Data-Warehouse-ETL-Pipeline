@@ -23,9 +23,37 @@ CREATE TABLE gold.dim_products(
 
 DROP TABLE IF EXISTS gold.dim_sellers;
 CREATE TABLE gold.dim_sellers (
-    seller_key BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    seller_id VARCHAR(50) NOT NULL,
-    seller_zip_code_prefix VARCHAR(5),
-    seller_city VARCHAR(50),
-    seller_state VARCHAR(2)
+    seller_key 				BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    seller_id 				VARCHAR(50) NOT NULL,
+    seller_zip_code_prefix  VARCHAR(5),
+    seller_city             VARCHAR(50),
+    seller_state            VARCHAR(2)
+);
+DROP TABLE IF EXISTS gold.fact_order_items;
+CREATE TABLE gold.fact_order_items(
+	
+	order_id  	        VARCHAR(50) NOT NULL,
+	order_item_id       INTEGER NOT NULL,
+	customer_key        BIGINT NOT NULL,
+	product_key	        BIGINT NOT NULL,
+	seller_key          BIGINT NOT NULL,
+	price 		        NUMERIC(12,2),
+	freight_value       NUMERIC(12,2),
+	shipping_limit_date DATE,
+
+	CONSTRAINT pk_fact_order_items
+	PRIMARY KEY(order_id, order_item_id),
+
+	CONSTRAINT fk_fact_customers
+	FOREIGN KEY (customer_key)
+	REFERENCES gold.dim_customers (customer_key),
+
+	CONSTRAINT fk_fact_products
+	FOREIGN KEY (product_key)
+	REFERENCES gold.dim_products (product_key),
+
+	
+	CONSTRAINT fk_fact_seller
+	FOREIGN KEY (seller_key)
+	REFERENCES gold.dim_products (product_key)	
 );
