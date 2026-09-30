@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS gold.dim_customers;
 CREATE TABLE gold.dim_customers(
 	
-	customer_key			 BIGINT	GENERATED ALWAYS AS IDENTITY,
+	customer_key			 BIGINT	GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 	customer_id              VARCHAR(50) UNIQUE NOT NULL,
 	customer_unique_id       VARCHAR(50) NOT NULL,
 	customer_zip_code_prefix VARCHAR(5)  NOT NULL,
@@ -12,7 +12,7 @@ CREATE TABLE gold.dim_customers(
 DROP TABLE IF EXISTS gold.dim_products;
 CREATE TABLE gold.dim_products(
 	
-	product_key			     BIGINT	GENERATED ALWAYS AS IDENTITY,
+	product_key			     BIGINT	GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 	product_id               VARCHAR(50) UNIQUE NOT NULL,
 	product_category         VARCHAR(50),
 	product_weight 			 INTEGER,
