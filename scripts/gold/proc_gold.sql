@@ -49,3 +49,35 @@ SELECT
     seller_city,
     seller_state
 FROM silver.sellers;
+
+TRUNCATE gold.fact_order_items;
+INSERT INTO gold.fact_order_items(
+
+order_id,
+order_item_id,
+customer_key,
+product_key,
+seller_key,
+price,
+freight_value,
+shipping_limit_date
+)
+
+SELECT
+op.order_id,
+op.order_item_id,
+dm.customer_key,
+dp.product_key,
+ds.seller_key,
+op.price,
+op.freight_value,
+op.shipping_limit_date::DATE
+FROM silver.order_items AS op
+LEFT JOIN silver.orders AS o
+ON op.order_id = o.order_id
+LEFT JOIN gold.dim_customers AS dm
+ON dm.customer_id = o.customer_id
+LEFT JOIN gold.dim_products AS dp
+ON op.product_id = dp.product_id
+LEFT JOIN gold.dim_sellers AS ds
+ON op.seller_id = ds.seller_id
