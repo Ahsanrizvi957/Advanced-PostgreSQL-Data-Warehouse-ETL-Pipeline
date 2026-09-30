@@ -35,13 +35,13 @@ DECLARE
 BEGIN
 
 --      generate a unique batch id
-v_batch_id:= nextval('bronze.batch_id_seq');
+v_batch_id:= nextval('etl.batch_id_seq');
 
 -- capture batch start time
 v_batch_start_time := clock_timestamp();
 
 -- storing the batch information in the audit table
-INSERT INTO bronze.batch_audit
+INSERT INTO etl.batch_audit
 (
 	batch_id,
 	layer,
@@ -235,7 +235,8 @@ RAISE NOTICE 'Total load duration: % seconds',
 RAISE NOTICE '================================================';
 
 -- update the records in the audit table 
-UPDATE bronze.batch_audit
+
+UPDATE etl.batch_audit
 SET 
 	batch_end_time = v_batch_end_time,
 	status = 'Success'
@@ -263,8 +264,5 @@ RAISE NOTICE 'Error_message: %', error_message;
 RAISE NOTICE 'Error_detail: %', error_detail;
 RAISE NOTICE 'Error_hint: %', error_hint;
 RAISE NOTICE 'Error_state: %', error_state;
-
-RAISE NOTICE '===================================================';
-RAISE;
 
 END $$
