@@ -57,3 +57,24 @@ CREATE TABLE gold.fact_order_items(
 	FOREIGN KEY (seller_key)
 	REFERENCES gold.dim_products (product_key)	
 );
+
+DROP TABLE IF EXISTS gold.fact_order_payments;
+CREATE TABLE gold.fact_order_payments(
+
+order_id 			 VARCHAR(50) NOT NULL,
+payment_sequential   SMALLINT NOT NULL,
+customer_key 		 BIGINT NOT NULL,
+payment_type 		 VARCHAR (20),
+payment_installments INTEGER,
+payment_value  		 NUMERIC(12,2),
+	
+
+	CONSTRAINT pk_fact_order_payments
+	PRIMARY KEY(order_id, payment_sequential),
+
+	CONSTRAINT fk_fact_customers
+	FOREIGN KEY (customer_key)
+	REFERENCES gold.dim_customers (customer_key)
+
+	
+);
