@@ -14,7 +14,6 @@ Usage Example: CALL bronze.load_silver();
 ===============================================================================
 */
 
-
 CREATE OR REPLACE PROCEDURE silver.load_silver()
 LANGUAGE plpgsql
 AS $$
@@ -39,13 +38,13 @@ BEGIN
 
 -- capture batch start time	
 
-v_batch_id := nextval('bronze.batch_id_seq');
+v_batch_id := nextval('etl.batch_id_seq');
 
 v_batch_start_time := clock_timestamp();
 
 -- inserting batch information in the audit table
 
-INSERT INTO bronze.batch_audit(
+INSERT INTO etl.batch_audit(
     batch_id,
     layer,
     batch_start_time,
@@ -301,7 +300,7 @@ v_batch_end_time := clock_timestamp();
 
 -- updating the batch audit table
 
-UPDATE bronze.batch_audit
+UPDATE etl.batch_audit
 SET
     batch_end_time = v_batch_end_time,
     status = 'success'
