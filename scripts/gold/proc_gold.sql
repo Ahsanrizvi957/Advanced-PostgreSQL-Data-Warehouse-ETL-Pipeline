@@ -81,3 +81,28 @@ LEFT JOIN gold.dim_products AS dp
 ON op.product_id = dp.product_id
 LEFT JOIN gold.dim_sellers AS ds
 ON op.seller_id = ds.seller_id
+
+TRUNCATE gold.fact_order_payments;
+INSERT INTO gold.fact_order_payments(
+
+order_id,
+payment_sequential,
+customer_key,
+payment_type,
+payment_installments,
+payment_value
+
+)
+
+SELECT
+op.order_id,
+op.payment_sequential,
+dc.customer_key,
+op.payment_type,
+op.payment_installments,
+op.payment_value
+FROM silver.order_payments AS op
+LEFT JOIN silver.orders AS o
+ON op.order_id = o.order_id
+LEFT JOIN gold.dim_customers AS dc
+ON o.customer_id = dc.customer_id
