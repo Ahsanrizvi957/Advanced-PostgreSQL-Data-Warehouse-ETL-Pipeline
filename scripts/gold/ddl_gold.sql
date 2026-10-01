@@ -55,7 +55,7 @@ CREATE TABLE gold.fact_order_items(
 	
 	CONSTRAINT fk_fact_seller
 	FOREIGN KEY (seller_key)
-	REFERENCES gold.dim_products (product_key)	
+	REFERENCES gold.dim_sellers (seller_key)	
 );
 
 DROP TABLE IF EXISTS gold.fact_order_payments;
