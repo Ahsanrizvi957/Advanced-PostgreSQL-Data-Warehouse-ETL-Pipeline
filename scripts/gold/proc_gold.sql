@@ -1,3 +1,22 @@
+/*
+=============================================================================
+Script Purpose:
+    This script performs the ETL (Extract, Transform, Load) process to 
+    populate the 'goldr' schema tables from the 'silver' schema.
+	Actions Performed:
+		- Truncates gold tables.
+		- Inserts transformed and cleansed data from silver into gold tables.
+		- Generating and maintaining relationships between fact and dimension tables through surrogate keys.
+		- Enforcing primary-key and foreign-key relationships to maintain referential integrity.
+		- Loading tables in dependency order, ensuring dimensions are populated before their dependent fact tables.
+		- It shows the load-duraton of each table along with the whole batch-duration.
+		- It also has exception handling, if there is any error during the load process it tells the root cause.
+		- It also has a separate audit table/log to track the pipeline status
+
+Usage Example: CALL gold.load_gold();
+===============================================================================
+*/
+
 CREATE OR REPLACE PROCEDURE gold.load_gold()
 LANGUAGE plpgsql
 AS $$
