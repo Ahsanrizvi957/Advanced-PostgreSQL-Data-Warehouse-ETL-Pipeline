@@ -1,3 +1,11 @@
+/*
+===========================================================================================
+DDL script: Create gold Tables
+============================================================================================
+Script Purpose: This scripts create tables in the gold Schema,Dropping existing tables if
+they already exists.
+*/
+
 DROP TABLE IF EXISTS gold.dim_customers;
 CREATE TABLE gold.dim_customers(
 	
